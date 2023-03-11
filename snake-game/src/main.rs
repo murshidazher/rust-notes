@@ -1,13 +1,25 @@
 fn main() {
-  // types of way to represent numbers
-  let custom_num = 98_000; // 98000
-  let hex_num = 0xfa; // 250
-  let bin_num = 0b0010_1011; // 43
+  // float and compound types
+  // https://google.github.io/comprehensive-rust/basic-syntax/compound-types.html
+  let float_num: f32 = 3.14;
+  let float_num_2: f64 = 3.2334327489;
 
-  let byte_num = b'A'; // Ox41 -> 65 https://www.utf8-chartable.de/
+  // The empty tuple () is also known as the “unit type”
+  // it is used to indicate `void`
+  let tup: (i32, &str, u8) = (20, "Hello", 1);
 
-  println!("{}", custom_num);
-  println!("{}", hex_num);
-  println!("{}", bin_num);
-  println!("{}", byte_num);
+  println!("{}", tup.1); // Hello
+
+  // destructing the tuple
+  let (a, b, c) = tup;
+  println!("{}", a); // 20
+
+  // you cannot change the size of the array after declaration
+  let x = [1, 5, 6, 7];
+
+  println!("{}", x[2]); // 6
+
+  // generate to a range
+  let y = [2; 6]; // [2, 2, 2, 2, 2, 2]
+  println!("{}", y[5]); // 2
 }
