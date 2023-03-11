@@ -1,21 +1,13 @@
 fn main() {
-  let is_it_fun = false;
-  // i32 -> signed integer of 32bits -> 2^31 – 1 (max number)
-  // signed can hold positive and negative values
-  let num = -10;
+  // types of way to represent numbers
+  let custom_num = 98_000; // 98000
+  let hex_num = 0xfa; // 250
+  let bin_num = 0b0010_1011; // 43
 
-  // u32 -> 2^32 - 1
-  // u8 -> unsigned integer of 8bits
-  // 2^8 - 1 = 255
-  let small_num: u8 = 255;
+  let byte_num = b'A'; // 65
 
-  // -2^7 -> 2^7 - 1
-  // -128 -> 127
-  let small_num_2: i8 = 127;
-
-  // architecture related types
-  // operating system related type
-  // isize or usize depends on arch will hold either 32bit or 64bit
-  let sys_num: isize = -10;
-  let sys_num_2: usize = 10;
+  println!("{}", custom_num);
+  println!("{}", hex_num);
+  println!("{}", bin_num);
+  println!("{}", byte_num);
 }
