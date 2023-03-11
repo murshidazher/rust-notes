@@ -17,6 +17,7 @@
   - [Manage Rust Versions](#manage-rust-versions)
     - [Create project](#create-project)
     - [Conventions \& Syntax](#conventions--syntax)
+    - [How Rust Memory it works ?](#how-rust-memory-it-works-)
   - [LICENSE](#license)
 
 ## Why Rust ?
@@ -85,6 +86,9 @@ since rust is a compiled language we need to compile it binary code so it can be
 ```sh
 rustc hello-world/src/main.rs
 ./main # execute the binary
+# to see the hex dump of the file
+# see the compiled version with sequence of the bytes
+xxd -g1 main
 ```
 
 to run the file using `cargo`;
@@ -100,6 +104,16 @@ cargo run
 
 - Naming -> snake case.
 - Basic types -> [Scalar types doc](https://google.github.io/comprehensive-rust/basic-syntax/scalar-types.html)
+
+### How Rust Memory it works ?
+
+> 🎥 Video on [Visualizing the rust memory](https://www.youtube.com/watch?v=rDoqT-a6UFg&t=581s)
+
+- Sequence of the bytes are loaded into the virtual memory where the code is saved so the the instruction set can be read
+- Stack -> grows high address to low address (much faster than heap)
+  - Main function runs in the stack
+- Heap -> grows low address to high address (bigger size than stack)
+- It will allocate a stack frame for main function execution in advance.
 
 ## LICENSE
 
