@@ -104,6 +104,8 @@ cargo run
 
 - Naming -> snake case.
 - Basic types -> [Scalar types doc](https://google.github.io/comprehensive-rust/basic-syntax/scalar-types.html)
+- Moving -> happens with dynamic value of the heap
+- Copy -> happens with static values
 
 ### How Rust Memory it works ?
 

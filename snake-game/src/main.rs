@@ -1,21 +1,15 @@
 fn main() {
   let message = String::from("Hello");
-  let message_2 =extend_message(message);
+  let message_2: &String = &message;
+  // message_2 is not owner of data
+  // message_2 is "borrowing" a reference to message
+  // message    |ptr|cap|len|
+  // message_2  |ptr|
 
+  println!("{}", message);
   println!("{}", message_2);
-
-  let age = 30;
-  extend_age(age);
-  println!("{}", age); // 30
 }
 
-// mark it as mutable string to append the world
-fn extend_message(mut a: String) -> String {
-  a.push_str(" World"); // we need to show a hello world message
-  a
-}
-
-// pass by value for primitive types
-fn extend_age(mut a: u32)  {
-  a += 100;
-}
+// message and message_2 going out of the scope
+// message_2 is not dropped because it doesn't have ownership of what it refers to
+// message is dropped
