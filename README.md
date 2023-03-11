@@ -67,12 +67,15 @@ rustup default nightly-2021-11-29
 
 ### Create project
 
-> 💡 `Cargo` is the Rust package manager equivalent to `npm`.
+> 💡 `Cargo` is the Rust package manager equivalent to `npm` for Javascript.
 
 You could create a new rust project with `cargo`:
 
 ```sh
 cargo new project-name
+# or you can init the file
+mkdir project-name && cd project-name
+cargo init
 ```
 
 since rust is a compiled language we need to compile it binary code so it can be executed,
