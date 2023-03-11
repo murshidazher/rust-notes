@@ -16,6 +16,7 @@
     - [Common Errors](#common-errors)
   - [Manage Rust Versions](#manage-rust-versions)
     - [Create project](#create-project)
+    - [Conventions \& Syntax](#conventions--syntax)
   - [LICENSE](#license)
 
 ## Why Rust ?
@@ -92,6 +93,13 @@ to run the file using `cargo`;
 cd project-name
 cargo run
 ```
+
+### Conventions & Syntax
+
+> 💡 Commonly used conventions in `rust`
+
+- Naming -> snake case.
+- Basic types -> [Scalar types doc](https://google.github.io/comprehensive-rust/basic-syntax/scalar-types.html)
 
 ## LICENSE
 
