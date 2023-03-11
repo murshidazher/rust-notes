@@ -1,26 +1,22 @@
 fn main() {
-  // you can place on stack only values with static size
-  let a = 10;
-  let b = a; // copying
-  let c = 15;
-  let d = add(a, b);
+  let message = String::from("Hello"); // message coming into scope
+  print_message(message); // message is moved to the print_message function
+  // message is no longer valid
 
-  println!("{}", d);
-
-  // compiler doesn't know the size in advance
-  // hence the string isn't placed in stack
-  // hence it will be stored in the heap memory since its dynamic
-  // the pointer (address) to the heap memory will be saved in stack
-  // ptr -> capacity (size in memory) -> length (actual length of string)
-  let message = String::from("Hello");
-  let message_2 = message;
-
-  //  cannot use message because it was moved to message_2
+  // error: value borrowed here after move
+  // this is because the value is moved to c and then removed
+  // after the popping of print_message's stack frame
   // println!("{}", message);
-  println!("{}", message_2);
 }
 
-fn add(x: u32, y: u32) -> u32 {
-  let sum = x + y;
-  sum
+fn print_message(a: String) { // a comes into the scope
+  println!("{}", a);
+  let c = a; // c is coming into scope and a is moved
+  // a is no longer valid
+
+  // this will also throw an error since a is moved
+  // println!("{}", a);
 }
+
+// a is going out of scope, but nothing more will happen since it was moved
+// c is going out of scope and 'drop' is called which clears the underlying memory from the heap
