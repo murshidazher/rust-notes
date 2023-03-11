@@ -4,6 +4,7 @@
 
 - Google's rust [handbook](https://google.github.io/comprehensive-rust/)
 - [Rust documentations](https://doc.rust-lang.org/book/ch01-01-installation.html)
+- Package registry for rust in 📦 [crates.io](https://crates.io/)
 
 ## Table of Contents
 
@@ -83,6 +84,13 @@ since rust is a compiled language we need to compile it binary code so it can be
 ```sh
 rustc hello-world/src/main.rs
 ./main # execute the binary
+```
+
+to run the file using `cargo`;
+
+```sh
+cd project-name
+cargo run
 ```
 
 ## LICENSE
