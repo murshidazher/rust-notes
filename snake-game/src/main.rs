@@ -3,6 +3,10 @@ fn main() {
   let message_2 =extend_message(message);
 
   println!("{}", message_2);
+
+  let age = 30;
+  extend_age(age);
+  println!("{}", age); // 30
 }
 
 // mark it as mutable string to append the world
@@ -11,3 +15,7 @@ fn extend_message(mut a: String) -> String {
   a
 }
 
+// pass by value for primitive types
+fn extend_age(mut a: u32)  {
+  a += 100;
+}
