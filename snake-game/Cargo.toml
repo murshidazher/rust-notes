@@ -10,4 +10,4 @@ rust-version = "1.68" # locks the rust version https://doc.rust-lang.org/cargo/r
 
 [[bin]]
 name = "snake_game"
-path = "main.rs" # default is 'src/main.rs', only needed if the executable is in another path https://doc.rust-lang.org/cargo/reference/cargo-targets.html#binaries
+path = "src/main.rs" # default is 'src/main.rs', only needed if the executable is in another path https://doc.rust-lang.org/cargo/reference/cargo-targets.html#binaries
