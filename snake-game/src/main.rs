@@ -1,45 +1,43 @@
-// class in other OOP languages is a combination of struct and imp in rust
 struct Person {
   name: String, // fields
   last_name: String,
   age: u32,
 }
 
-// behaviors for a specific struct
 impl Person {
-  // associated function
-  fn some_function() {
-      println!("some_function");
+  // this can be anything
+  fn new() -> Person {
+    Person {
+      name: "Default".to_string(),
+      last_name: "Default".to_string(),
+      age: 0
+    }
   }
 
-  // method
-  // first parameter is always self, which represents the instance of the struct the
-  // method is being called on
-  // Within an impl block, the type Self is an alias for the current type
-  fn display_age(&self) {
-      println!("Current Age: {}", self.age);
+  fn from(name: String, last_name: String, age: u32) -> Person {
+    Person {
+      name,
+      last_name,
+      age
+    }
+  }
+
+  // we need a mutable reference (mutable ref of Person) to change the age
+  fn change_age(&mut self, new_age: u32) {
+    self.age = new_age;
   }
 }
 
-// Struct is similar to objects in other languages
-// Used when we need to group multiple values together
 fn main() {
-  Person::some_function(); // static function
+  let mut person = Person::new();
+  let person_2 = Person::from(
+    String::from("John"),
+    String::from("Snow"),
+    35
+  );
 
-  let person =  Person {
-    name: "John".to_string(), // &str -> String
-    last_name: "Doe".to_string(), // &str -> String
-    age: 24,
-  };
-
-  let person_2 =  Person {
-    name: "John".to_string(),
-    last_name: "Snow".to_string(),
-    age: 35,
-  };
-
-  person.display_age();
-  person_2.display_age();
+  person.change_age(50);
 
   println!("{} {} {}", person.name, person.last_name, person.age);
+  println!("{} {} {}", person_2.name, person_2.last_name, person_2.age);
 }
