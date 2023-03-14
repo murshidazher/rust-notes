@@ -1,21 +1,32 @@
+// De-referencing
+// * means de-referencing
+// only by de-referencing a number can you get the value
 fn main() {
   let mut message = String::from("Hello"); // immutable borrow
-  let message_3 = &message;
-  println!("{}", message_3);
   let message_2 = &mut message;
-  // let message_4 = &message;
-  // we can't do this too since the is a mutate call above
 
-  // rust compiler doesn't allow the immutable to be print before mutable
-  // error -> cannot borrow `message` as immutable because it is also borrowed as mutable
-  // println!("{}", message);
-  // it's because this function can be async and can update the value of message while the program is running. This is unpredictable variability.
-  // unpredictable_mutate(message_2);
+  (*message_2).push_str(" World");
+  // same as
+  // message_2.push_str(" World");
 
-  unpredictable_mutate(message_2);
-  println!("{}", message);
-}
+  println!("{}", message_2);
 
-fn unpredictable_mutate(val: &mut String) {
-  val.push_str("_unpredictable");
+  let a = 10;
+  let b = &a;
+  let c = &b;
+
+  println!("{}", a == **c);
+
+  let mut c = &b;
+  let d = b;
+
+  let e = &&100;
+
+  c = e;
+
+  // we can print the pointer address instead of the value
+  println!("e: {:p}", e);
+  println!("e: {:p}", *e);
+  println!("c: {:p}", c);
+  println!("c: {:p}", *c);
 }
