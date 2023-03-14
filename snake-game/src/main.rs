@@ -1,9 +1,8 @@
 fn main() {
-  let mut message = String::from("HELLO");
-  let message_3 = message.clone();
+  // store the number in the stack
+  let num = 32;
+  // store the number in the heap
+  let num_3 = Box::new(100);
 
-  message.clear();
-
-  println!("{}", message);
-  println!("{}", message_3);
+  println!("{}", num_3);
 }
