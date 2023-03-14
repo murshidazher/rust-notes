@@ -1,8 +1,9 @@
 fn main() {
   let mut message = String::from("HELLO");
-  let slice = &message[2..4]; // 2 -> 3
-  // H E L L O
-  // 0 1 2 3 4
+  let message_3 = message.clone();
 
-  println!("{}", slice);
+  message.clear();
+
+  println!("{}", message);
+  println!("{}", message_3);
 }
