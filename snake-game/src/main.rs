@@ -1,8 +1,17 @@
-fn main() {
-  // store the number in the stack
-  let num = 32;
-  // store the number in the heap
-  let num_3 = Box::new(100);
+struct Person {
+  name: String,
+  last_name: String,
+  age: u32,
+}
 
-  println!("{}", num_3);
+// Struct is similar to objects in other languages
+// Used when we need to group multiple values together
+fn main() {
+  let person =  Person {
+    name: "John".to_string(), // &str -> String
+    last_name: "Doe".to_string(), // &str -> String
+    age: 24,
+  };
+
+  println!("{} {} {}", person.name, person.last_name, person.age);
 }
