@@ -6,14 +6,24 @@ static ALLOC: WeeAlloc = WeeAlloc::INIT;
 
 struct SnakeCell(usize);
 
+#[derive(PartialEq)]
+enum Direction {
+    Up,
+    Right,
+    Down,
+    Left
+}
+
 struct Snake {
     body: Vec<SnakeCell>,
+    direction: Direction,
 }
 
 impl Snake {
     fn new(spawn_index: usize) -> Snake {
         Snake {
-            body: vec![SnakeCell(spawn_index)],
+            body: vec!(SnakeCell(spawn_index)),
+            direction: Direction::Right,
         }
     }
 }
@@ -45,7 +55,16 @@ impl World {
 
     pub fn update(&mut self) {
         let snake_idx = self.snake_head_idx();
-        self.snake.body[0].0 = (snake_idx + 1) % self.size;
+        let row = snake_idx / self.width;
+
+        if self.snake.direction == Direction::Right {
+            let next_col = (snake_idx + 1) % self.width;
+            self.snake.body[0].0 = (row * self.width) + next_col;
+        }
+        if self.snake.direction == Direction::Left {
+            let next_col = (snake_idx - 1) % self.width;
+            self.snake.body[0].0 = (row * self.width) + next_col;
+        }
     }
 }
 // wasm-pack build --target web
