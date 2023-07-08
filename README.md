@@ -18,6 +18,7 @@
     - [Create project](#create-project)
     - [Conventions \& Syntax](#conventions--syntax)
     - [How Rust Memory it works ?](#how-rust-memory-it-works-)
+    - [`Match` keyword](#match-keyword)
   - [LICENSE](#license)
 
 ## Why Rust ?
@@ -116,6 +117,10 @@ cargo run
   - Main function runs in the stack
 - Heap -> grows low address to high address (bigger size than stack)
 - It will allocate a stack frame for main function execution in advance.
+
+### `Match` keyword
+
+The `match` keyword is used for pattern matching.
 
 ## LICENSE
 
