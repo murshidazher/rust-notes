@@ -18,3 +18,4 @@ crate-type = ["cdylib"] # This is used when compiling a dynamic library to be lo
 
 [dependencies]
 wasm-bindgen = "0.2.87" # https://rustwasm.github.io/wasm-bindgen/
+wee_alloc = "0.4.5" # produces a smaller footprint for wasm file https://github.com/rustwasm/wee_alloc
