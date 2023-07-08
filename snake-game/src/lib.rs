@@ -4,6 +4,7 @@ use wee_alloc::WeeAlloc;
 #[global_allocator]
 static ALLOC: WeeAlloc = WeeAlloc::INIT;
 
+#[derive(Clone)]
 pub struct SnakeCell(usize);
 
 #[wasm_bindgen]
@@ -73,8 +74,16 @@ impl World {
     }
 
     pub fn step(&mut self) {
+        let temp = self.snake.body.clone();
         let next_cell = self.gen_next_snake_cell();
         self.snake.body[0] = next_cell;
+
+        // move the next snake body cell by the previous cell
+        let len = self.snake.body.len();
+
+        for i in 1..len {
+            self.snake.body[i] = SnakeCell(temp[i - 1].0);
+        }
     }
 
     fn gen_next_snake_cell(&self) -> SnakeCell {
@@ -83,13 +92,13 @@ impl World {
 
         return match self.snake.direction {
             Direction::Right => {
-              let threshold = (row + 1) * self.width;
+                let threshold = (row + 1) * self.width;
                 if snake_idx + 1 == threshold {
                     SnakeCell(threshold - self.width)
                 } else {
                     SnakeCell(snake_idx + 1)
                 }
-            },
+            }
             Direction::Left => {
                 let threshold = row * self.width;
                 if snake_idx == threshold {
@@ -97,7 +106,7 @@ impl World {
                 } else {
                     SnakeCell(snake_idx - 1)
                 }
-            },
+            }
             Direction::Up => {
                 let threshold = snake_idx - (row * self.width);
                 if snake_idx == threshold {
@@ -105,7 +114,7 @@ impl World {
                 } else {
                     SnakeCell(snake_idx - self.width)
                 }
-            },
+            }
             Direction::Down => {
                 let threshold = snake_idx + ((self.width - row) * self.width);
                 if snake_idx + self.width == threshold {
@@ -113,7 +122,7 @@ impl World {
                 } else {
                     SnakeCell(snake_idx + self.width)
                 }
-            },
+            }
         };
     }
 }
