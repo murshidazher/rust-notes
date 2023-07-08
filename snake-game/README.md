@@ -34,6 +34,11 @@ xxd -g1 www/sum.wasm # 67 bytes (67 instruction)
 
 - Will be using the webpack to bundle and load the wasm file dynamically
 
+```sh
+pnpm install
+pnpm run dev # http://localhost:8080/
+```
+
 ## LICENSE
 
 2023 &copy; Murshid Azher.
