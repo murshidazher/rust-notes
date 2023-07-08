@@ -1,3 +1,10 @@
+trait Log {
+    fn display_info(&self);
+    fn alert_something(&self) {
+        println!("Default implementation!")
+    }
+}
+
 #[derive(Debug)]
 enum PersonId {
   Passport(u32),
@@ -12,6 +19,22 @@ struct Person {
 }
 
 struct Animal(String);
+
+impl Log for Animal {
+    fn display_info(&self) {
+        println!("{}", self.0)
+    }
+
+    fn alert_something(&self) {
+        println!("Animal implementation!")
+    }
+}
+
+impl Log for Person {
+    fn display_info(&self) {
+        println!("{} {} {} {:?}", self.name, self.last_name, self.age, self.id)
+    }
+}
 
 impl Person {
     fn new() -> Person {
@@ -35,53 +58,28 @@ impl Person {
     fn change_age(&mut self, new_age: u32) {
        self.age = new_age;
     }
-
-    fn display_info(&self) {
-        println!("{} {} {} {:?}", self.name, self.last_name, self.age, self.id)
-    }
 }
 
 fn main() {
     let mut person = Person::new();
-    let person_2 = Person::from(
-        String::from("John"),
-        String::from("Snow"),
-        35,
-        PersonId::Passport(123172371)
-    );
+    let animal = Animal(String::from("dog"));
 
     person.change_age(38);
-    person.display_info();
 
-    // PersonId::IdentityCard(540, 320, 100)
-    check_person_id(person.id);
-    check_person_id(person_2.id);
+    log_info(person);
+    log_info_2(&animal);
 }
 
-fn check_person_id(id: PersonId) {
+// impl makes the compiler determine type at the compile time
+// it will create multiple versions of the function, depending on
+// how many types Log trait implements (Person, Animal)
+fn log_info(val: impl Log) {
+    val.alert_something();
+}
 
-    // pattern matching with if let
-    if let PersonId::Passport(num) = id {
-        println!("It matching Passport {}", num);
-    } else {
-        println!("It doesn't match!");
-    }
-
-    // It should match the identity card pattern or passport pattern
-    let result = match id {
-        PersonId::IdentityCard(_x, y, _z) => {
-            y
-        },
-        PersonId::Passport(val) => {
-            val
-        }
-    };
-
-    let animal = Animal(String::from("dog"));
-    // `animal_type` is the custom placeholder for the value
-    let Animal(animal_type) = animal;
-
-    println!("{}", animal_type);
-
-    println!("Result: {}", result);
+// dyn is short for dynamic, and says that function should perform dynamic dispatch
+// decision of exactly which function to call `at the runtime`
+// smaller build size because it will only have one version of the Log implementation
+fn log_info_2(val: &dyn Log) {
+    val.alert_something();
 }

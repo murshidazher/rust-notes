@@ -18,7 +18,6 @@
     - [Create project](#create-project)
     - [Conventions \& Syntax](#conventions--syntax)
     - [How Rust Memory it works ?](#how-rust-memory-it-works-)
-    - [`Match` keyword](#match-keyword)
   - [LICENSE](#license)
 
 ## Why Rust ?
@@ -107,6 +106,9 @@ cargo run
 - Basic types -> [Scalar types doc](https://google.github.io/comprehensive-rust/basic-syntax/scalar-types.html)
 - Moving -> happens with dynamic value of the heap
 - Copy -> happens with static values
+- The `match` keyword is used for pattern matching for enum.
+- The `struct` keyword is like **class** and `trait` is similar to **interfaces**. - [more on this](https://betterprogramming.pub/rust-basics-structs-methods-and-traits-bb4839cd57bd)
+- The `impl` makes the compiler determine type at the compile time
 
 ### How Rust Memory it works ?
 
@@ -117,10 +119,6 @@ cargo run
   - Main function runs in the stack
 - Heap -> grows low address to high address (bigger size than stack)
 - It will allocate a stack frame for main function execution in advance.
-
-### `Match` keyword
-
-The `match` keyword is used for pattern matching.
 
 ## LICENSE
 
