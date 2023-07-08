@@ -40,14 +40,24 @@ init().then(() => {
     ctx.stroke();
   }
 
-  drawWorld();
-  drawSnake();
-
-  // Every 100ms, re-draw the world and snake
-  setInterval(() => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clean canvas before redrawing
+  function paint() {
     drawWorld();
     drawSnake();
-    world.update(); // move the snake head to the right
-  }, 100);
+  }
+
+  function update() {
+    // setTimeout will be only called once
+    setTimeout(() => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clean canvas before redrawing
+      world.update(); // move the snake head to the right
+      paint();
+      // the method takes a callback to invoked before the next repaint function of the browser
+      // this will synchronize animation with the display refresh rate
+      // https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+      requestAnimationFrame(update);
+    }, 100);
+  }
+
+  paint();
+  update();
 });
