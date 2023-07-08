@@ -1,8 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/eslintrc",
   "root": true,
-  "extends": ["airbnb", "prettier"],
-  "plugins": ["prettier"],
+  "extends": ["standard-with-typescript", "prettier"],
+  "plugins": ["@typescript-eslint", "prettier"],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": "latest"
