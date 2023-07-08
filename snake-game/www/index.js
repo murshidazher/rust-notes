@@ -1,5 +1,9 @@
 async function init() {
+  const memory = new WebAssembly.Memory({ initial: 1 }); // load one page (64B) memory
   const importObject = {
+    js: {
+      mem: memory
+    },
     console: {
       log: () => {
         console.log("Just logging something!");
@@ -12,12 +16,10 @@ async function init() {
 
   const response = await fetch("sum.wasm");
   const buffer = await response.arrayBuffer();
-  const wasm = await WebAssembly.instantiate(buffer, importObject);
 
-  const sumFunction = wasm.instance.exports.sum;
-  const wasmMemory = wasm.instance.exports.mem;
+  const wasm = await WebAssembly.instantiate(buffer, importObject);
   // We're not loading the whole 64B (page) buffer instead we are loading only the first two bytes
-  const uint8Array = new Uint8Array(wasmMemory.buffer, 0, 2);
+  const uint8Array = new Uint8Array(memory.buffer, 0, 2);
 
   const hiText = new TextDecoder().decode(uint8Array);
   console.log(hiText);
