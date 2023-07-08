@@ -11,7 +11,7 @@ enum Direction {
     Up,
     Right,
     Down,
-    Left
+    Left,
 }
 
 struct Snake {
@@ -22,7 +22,7 @@ struct Snake {
 impl Snake {
     fn new(spawn_index: usize) -> Snake {
         Snake {
-            body: vec!(SnakeCell(spawn_index)),
+            body: vec![SnakeCell(spawn_index)],
             direction: Direction::Down,
         }
     }
@@ -41,7 +41,7 @@ impl World {
         World {
             width,
             size: width * width,
-            snake: Snake::new(snake_idx)
+            snake: Snake::new(snake_idx),
         }
     }
 
@@ -55,28 +55,27 @@ impl World {
 
     pub fn update(&mut self) {
         let snake_idx = self.snake_head_idx();
-        let row = snake_idx / self.width;
-        let col = snake_idx % self.width;
+        let (row, col) = self.index_to_cell(snake_idx);
+        let (row, col) = match self.snake.direction {
+            Direction::Right => (row, (col + 1) % self.width),
+            Direction::Left => (row, (col - 1) % self.width),
+            Direction::Up => ((row - 1) % self.width, col),
+            Direction::Down => ((row + 1) % self.width, col),
+        };
+        let next_idx = self.cell_to_index(row, col);
+        self.set_snake_head(next_idx);
+    }
 
-        if self.snake.direction == Direction::Right {
-            let next_col = (col + 1) % self.width;
-            self.snake.body[0].0 = (row * self.width) + next_col;
-        }
+    fn set_snake_head(&mut self, idx: usize) {
+        self.snake.body[0].0 = idx;
+    }
 
-        if self.snake.direction == Direction::Left {
-            let next_col = (col - 1) % self.width;
-            self.snake.body[0].0 = (row * self.width) + next_col;
-        }
+    fn index_to_cell(&self, idx: usize) -> (usize, usize) {
+        (idx / self.width, idx % self.width)
+    }
 
-        if self.snake.direction == Direction::Up {
-            let next_row = (row - 1) % self.width;
-            self.snake.body[0].0 = (next_row * self.width) + col;
-        }
-
-        if self.snake.direction == Direction::Down {
-            let next_row = (row + 1) % self.width;
-            self.snake.body[0].0 = (next_row * self.width) + col;
-        }
+    fn cell_to_index(&self, row: usize, col: usize) -> usize {
+        (row * self.width) + col
     }
 }
 // wasm-pack build --target web
