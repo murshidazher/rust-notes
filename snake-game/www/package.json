@@ -1,0 +1,19 @@
+{
+  "name": "www",
+  "version": "0.0.1",
+  "description": "A rust wasm based snake game",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack build --config webpack.prod.js ",
+    "dev": "webpack-dev-server --hot --config webpack.dev.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "5.88.1",
+    "webpack-cli": "5.1.4",
+    "webpack-dev-server": "4.15.1",
+    "webpack-merge": "5.9.0"
+  }
+}

@@ -30,6 +30,10 @@ xxd -g1 www/sum.wasm # 67 bytes (67 instruction)
 
 - if you see the `sum.wasm` size it would be **67B**.
 
+### Webpack
+
+- Will be using the webpack to bundle and load the wasm file dynamically
+
 ## LICENSE
 
 2023 &copy; Murshid Azher.
