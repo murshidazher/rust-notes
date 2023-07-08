@@ -30,5 +30,16 @@ init().then(() => {
     ctx.stroke(); // Draw the line stroke
   }
 
+  function drawSnake() {
+    const snakeIdx = world.snake_head_idx();
+    const col = snakeIdx % worldWidth; // 10 % 8 = 2
+    const row = Math.floor(snakeIdx / worldWidth); // (10/8) = 1
+
+    ctx.beginPath();
+    ctx.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+    ctx.stroke();
+  }
+
   drawWorld();
+  drawSnake();
 });
