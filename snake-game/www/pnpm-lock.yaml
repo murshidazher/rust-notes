@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+dependencies:
+  snake_game:
+    specifier: file://../pkg
+    version: file:../pkg
+
 devDependencies:
   copy-webpack-plugin:
     specifier: 11.0.0
@@ -2245,3 +2250,9 @@ packages:
       utf-8-validate:
         optional: true
     dev: true
+
+  file:../pkg:
+    resolution: {directory: ../pkg, type: directory}
+    name: snake_game
+    version: 0.1.0
+    dev: false

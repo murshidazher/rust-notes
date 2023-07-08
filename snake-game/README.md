@@ -39,6 +39,17 @@ pnpm install
 pnpm run dev # http://localhost:8080/
 ```
 
+### Wasm Rust
+
+> 💡 `*_bg.*` files in `/pkg` are the bindgen files of rust.
+
+To build **rust** to **wasm** compilation through cli, we need the `wasm-pack`
+
+```sh
+cargo install wasm-pack
+wasm-pack build --target web # this will create a compiled code with ts types
+```
+
 ## LICENSE
 
 2023 &copy; Murshid Azher.

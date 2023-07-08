@@ -1,13 +1,20 @@
 [package]
-name = "snake-game"
+name = "snake_game"
+description = """
+A snake game built using rust for wasm
+"""
+repository = "https://github.com/murshidazher/rust-notes"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+authors = ["Murshid Azher"]
 rust-version = "1.68" # locks the rust version https://doc.rust-lang.org/cargo/reference/manifest.html#the-rust-version-field
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[dependencies]
-
-[[bin]]
+[lib]
 name = "snake_game"
-path = "src/main.rs" # default is 'src/main.rs', only needed if the executable is in another path https://doc.rust-lang.org/cargo/reference/cargo-targets.html#binaries
+crate-type = ["cdylib"] # This is used when compiling a dynamic library to be loaded from another language
+
+[dependencies]
+wasm-bindgen = "0.2.87" # https://rustwasm.github.io/wasm-bindgen/
