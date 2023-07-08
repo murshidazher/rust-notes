@@ -42,4 +42,12 @@ init().then(() => {
 
   drawWorld();
   drawSnake();
+
+  // Every 100ms, re-draw the world and snake
+  setInterval(() => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clean canvas before redrawing
+    drawWorld();
+    drawSnake();
+    world.update(); // move the snake head to the right
+  }, 100);
 });
