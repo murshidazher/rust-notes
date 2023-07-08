@@ -1,1 +1,1 @@
-!async function(){const n=new Int8Array([0,97,115,109,1,0,0,0,1,7,1,96,2,127,127,1,127,3,2,1,0,7,7,1,3,115,117,109,0,0,10,9,1,7,0,32,0,32,1,106,11,0,24,4,110,97,109,101,1,6,1,0,3,115,117,109,2,9,1,0,2,0,1,97,1,1,98]),s=(0,(await WebAssembly.instantiate(n.buffer)).instance.exports.sum)(10,20);console.log(s)}();
+!async function(){const a=await fetch("sum.wasm"),s=await a.arrayBuffer(),t=(0,(await WebAssembly.instantiate(s)).instance.exports.sum)(10,20);console.log(t)}();
