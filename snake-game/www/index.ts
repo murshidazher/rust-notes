@@ -2,7 +2,7 @@ import init, { World, Direction } from "snake_game";
 
 
 
-init().then(() => {
+init().then((wasm) => {
   const CELL_SIZE = 20;
   const WORLD_WIDTH = 8;
   const snakeSpawnIdx = Date.now() % (WORLD_WIDTH * WORLD_WIDTH);
@@ -22,6 +22,17 @@ init().then(() => {
     "ArrowDown": Direction.Down,
     "ArrowLeft": Direction.Left,
   }
+
+  const snakeCellPtr = world.snake_cells();
+  const snakeLen = world.snake_length();
+
+  const snakeCells = new Uint32Array(
+    wasm.memory.buffer,
+    snakeCellPtr,
+    snakeLen
+  )
+
+  console.log(snakeCells);
 
   document.addEventListener("keydown", e => world.change_snake_dir(mapKeyToDirection[e.code]));
 
