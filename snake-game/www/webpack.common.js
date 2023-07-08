@@ -1,17 +1,24 @@
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  entry: "./index.js",
+  entry: "./bootstrap.js",
   output: {
     path: path.resolve(__dirname, "public"),
-    filename: "index.js"
+    filename: "bootstrap.js"
   },
   plugins: [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: [
+        'public/*.wasm',
+      ],
+    }),
     new CopyWebpackPlugin({
       patterns: [
         { from: "./index.html", to: "./"}
       ]
-    })
+    }),
+
   ]
 }

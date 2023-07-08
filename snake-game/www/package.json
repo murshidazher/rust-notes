@@ -1,19 +1,27 @@
 {
-  "name": "www",
+  "name": "snake-game-wasm",
   "version": "0.0.1",
   "description": "A rust wasm based snake game",
   "main": "index.js",
   "scripts": {
-    "build": "webpack build --config webpack.prod.js ",
+    "prebuild": "npm run build:rust",
+    "build": "webpack build --config webpack.prod.js",
+    "build:rust": "wasm-pack build --target web",
+    "predev": "npm run build:rust",
     "dev": "webpack-dev-server --hot --config webpack.dev.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "wasm",
+    "rust",
+    "snake-game"
+  ],
+  "author": "Murshid Azher <hello@murshidazher.com>",
   "license": "MIT",
   "dependencies": {
     "snake_game": "file://../pkg"
   },
   "devDependencies": {
+    "clean-webpack-plugin": "4.0.0",
     "copy-webpack-plugin": "11.0.0",
     "webpack": "5.88.1",
     "webpack-cli": "5.1.4",

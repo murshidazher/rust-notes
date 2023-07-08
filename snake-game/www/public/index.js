@@ -1,1 +1,0 @@
-!async function(){const e={console:{log:()=>{console.log("Just logging something!")},error:()=>{console.log("I am just error")}}},o=await fetch("sum.wasm"),n=await o.arrayBuffer(),s=await WebAssembly.instantiate(n,e),t=(s.instance.exports.sum,s.instance.exports.mem),a=new Uint8Array(t.buffer,0,2),r=(new TextDecoder).decode(a);console.log(r)}();

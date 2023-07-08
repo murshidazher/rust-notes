@@ -9,33 +9,6 @@
   </head>
   <body>
     <h1>Hello World</h1>
-    <script src="./index.js"></script>
+    <script src="./bootstrap.js"></script>
   </body>
 </html>
-
-<!-- example of pure wasm code to sum two function together -->
-
-<!-- types https://www.assemblyscript.org/types.html -->
-<!-- i32, i64, f32, f64 -->
-
-<!-- we can either create memory in WebAssembly and export it to JS -->
-<!-- or we can create memory in JS and import it to WebAssembly -->
-<!-- this it the way we can share data between JavaScript and WebAssembly -->
-
-<!-- Now will create memory in WebAssembly and export it to JS -->
-<!-- $mem 1 means -> 1 page of memory, page has around 64KB -->
-<!-- (module
-  (import "console" "log" (func $log))
-  (import "console" "error" (func $error))
-  (memory $mem 1)
-  (data (i32.const 0) "Hi")
-  (func $sum (param $a i32) (param $b i32) (result i32)
-    call $log
-    call $error
-    local.get $a
-    local.get $b
-    i32.add
-  )
-  (export "mem" (memory $mem))
-  (export "sum" (func $sum))
-) -->
