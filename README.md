@@ -109,6 +109,8 @@ cargo run
 - The `match` keyword is used for pattern matching for enum.
 - The `struct` keyword is like **class** and `trait` is similar to **interfaces**. - [more on this](https://betterprogramming.pub/rust-basics-structs-methods-and-traits-bb4839cd57bd)
 - The `impl` makes the compiler determine type at the compile time
+- The `mod` can be used to expose new module.
+- Use `cargo fmt` to format rust code. [rustfmt](https://github.com/rust-lang/rustfmt)
 
 ### How Rust Memory it works ?
 

@@ -5,7 +5,8 @@
 
 // short hand to import all the imports in one-line
 // use modularity::*;
-use modularity::{Person, Animal, log_info, log_info_2};
+// package::module::{imports};
+use modularity::learning_rust::{log_info, log_info_2, Animal, Person};
 
 fn main() {
     let mut person = Person::new();
