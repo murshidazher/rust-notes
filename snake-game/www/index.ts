@@ -2,8 +2,10 @@ import init, { World } from "snake_game";
 
 init().then(() => {
   const CELL_SIZE = 20;
+  const WORLD_WIDTH = 8;
+  const snakeSpawnIdx = Date.now() % (WORLD_WIDTH * WORLD_WIDTH);
 
-  const world = World.new();
+  const world = World.new(WORLD_WIDTH, snakeSpawnIdx);
   const worldWidth = world.width();
 
   const canvas = <HTMLCanvasElement> document.getElementById("snake-canvas");
@@ -32,8 +34,8 @@ init().then(() => {
 
   function drawSnake() {
     const snakeIdx = world.snake_head_idx();
-    const col = snakeIdx % worldWidth; // 10 % 8 = 2
-    const row = Math.floor(snakeIdx / worldWidth); // (10/8) = 1
+    const col = snakeIdx % worldWidth;
+    const row = Math.floor(snakeIdx / worldWidth);
 
     ctx.beginPath();
     ctx.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
@@ -46,6 +48,7 @@ init().then(() => {
   }
 
   function update() {
+    const fps = 3; // frames per second
     // setTimeout will be only called once
     setTimeout(() => {
       ctx.clearRect(0, 0, canvas.width, canvas.height); // Clean canvas before redrawing
@@ -55,7 +58,7 @@ init().then(() => {
       // this will synchronize animation with the display refresh rate
       // https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
       requestAnimationFrame(update);
-    }, 100);
+    }, 1000 / fps);
   }
 
   paint();
