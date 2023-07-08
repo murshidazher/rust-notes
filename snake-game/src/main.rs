@@ -57,6 +57,14 @@ fn main() {
 }
 
 fn check_person_id(id: PersonId) {
+
+    // pattern matching with if let
+    if let PersonId::Passport(num) = id {
+        println!("It matching Passport {}", num);
+    } else {
+        println!("It doesn't match!");
+    }
+
     // It should match the identity card pattern or passport pattern
     let result = match id {
         PersonId::IdentityCard(_x, y, _z) => {
