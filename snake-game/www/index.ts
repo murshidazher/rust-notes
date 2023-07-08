@@ -1,7 +1,5 @@
 import init, { World, Direction } from "snake_game";
 
-
-
 init().then((wasm) => {
   const CELL_SIZE = 20;
   const WORLD_WIDTH = 8;
@@ -22,17 +20,6 @@ init().then((wasm) => {
     "ArrowDown": Direction.Down,
     "ArrowLeft": Direction.Left,
   }
-
-  const snakeCellPtr = world.snake_cells();
-  const snakeLen = world.snake_length();
-
-  const snakeCells = new Uint32Array(
-    wasm.memory.buffer,
-    snakeCellPtr,
-    snakeLen
-  )
-
-  console.log(snakeCells);
 
   document.addEventListener("keydown", e => world.change_snake_dir(mapKeyToDirection[e.code]));
 
@@ -55,12 +42,27 @@ init().then((wasm) => {
   }
 
   function drawSnake() {
-    const snakeIdx = world.snake_head_idx();
-    const col = snakeIdx % worldWidth;
-    const row = Math.floor(snakeIdx / worldWidth);
+    const snakeCells = new Uint32Array(
+      wasm.memory.buffer,
+      world.snake_cells(),
+      world.snake_length()
+    )
 
-    ctx.beginPath();
-    ctx.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+    snakeCells.forEach((cellIdx, i) => {
+      const col = cellIdx % worldWidth;
+      const row = Math.floor(cellIdx / worldWidth);
+
+      ctx.fillStyle = i === 0 ? "#7878db" : "#000000";
+
+      ctx.beginPath();
+      ctx.fillRect(
+        col * CELL_SIZE,
+        row * CELL_SIZE,
+        CELL_SIZE,
+        CELL_SIZE
+      );
+    });
+
     ctx.stroke();
   }
 
@@ -74,7 +76,7 @@ init().then((wasm) => {
     // setTimeout will be only called once
     setTimeout(() => {
       ctx.clearRect(0, 0, canvas.width, canvas.height); // Clean canvas before redrawing
-      world.update(); // move the snake head to the right
+      world.step(); // move the body
       paint();
       // the method takes a callback to invoked before the next repaint function of the browser
       // this will synchronize animation with the display refresh rate
