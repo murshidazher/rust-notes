@@ -1,3 +1,5 @@
+// The reason why we are not using mod in the main fn is that it is imported automatically
+
 // use modularity::Person;
 // use modularity::Animal;
 // use modularity::log_info;

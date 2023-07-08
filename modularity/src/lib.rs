@@ -1,3 +1,13 @@
+mod another_lib_v2; // name of the file, 'mod' is to import the file
+
+use another_lib_v2::another_mod; // 'use' keyword will only alias the module path to another_mod
+
+fn outsider() {
+    another_mod::another_fn();
+    // crate::another_mod::another_fn();
+    println!("outsider fn!");
+}
+
 // creating a new module using mod
 pub mod learning_rust {
 
@@ -55,6 +65,11 @@ pub mod learning_rust {
             // relative path
             top_level::hi_there();
             top_level::low_level::hello_world();
+
+            // ../
+            super::another_mod::another_fn();
+            // or absolute import
+            crate::another_mod::another_fn();
 
             println!(
                 "{} {} {} {:?}",

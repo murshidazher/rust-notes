@@ -111,6 +111,7 @@ cargo run
 - The `impl` makes the compiler determine type at the compile time
 - The `mod` can be used to expose new module.
 - Use `cargo fmt` to format rust code. [rustfmt](https://github.com/rust-lang/rustfmt)
+- The `cater` is used for absolute import while `super` is used to access outside of the current module. This is something similar to `../`
 
 ### How Rust Memory it works ?
 
