@@ -4,6 +4,8 @@
   "description": "A rust wasm based snake game",
   "main": "index.js",
   "scripts": {
+    "lint:fix": "eslint --cache --fix '**/*.js'",
+    "lint:prettier:fix": "prettier --write '**/*.js'",
     "prebuild": "npm run build:rust && pnpm i",
     "build": "webpack build --config webpack.prod.js",
     "build:rust": "wasm-pack build --target web",
@@ -23,6 +25,13 @@
   "devDependencies": {
     "clean-webpack-plugin": "4.0.0",
     "copy-webpack-plugin": "11.0.0",
+    "eslint": "8.44.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-prettier": "8.8.0",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-prettier": "5.0.0-alpha.1",
+    "prettier": "3.0.0",
     "webpack": "5.88.1",
     "webpack-cli": "5.1.4",
     "webpack-dev-server": "4.15.1",

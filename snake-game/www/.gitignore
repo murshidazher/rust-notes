@@ -22,3 +22,6 @@ tmp/*[.json, .log]
 
 # local config files
 **/*.local.ts
+
+# eslint
+.eslintcache

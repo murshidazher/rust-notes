@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/eslintrc",
+  "root": true,
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": "latest"
+  },
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "rules": {
+    "prettier/prettier": ["error"],
+    "no-plusplus": ["off"],
+    "import/no-extraneous-dependencies": ["off"]
+  }
+}
