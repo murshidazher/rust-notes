@@ -1,5 +1,5 @@
-import init, { World, Direction, InitOutput } from "snake_game";
-import { rnd } from "./utils/rnd";
+import init, { World, Direction, type InitOutput } from "snake_game";
+import rnd from "./utils/rnd";
 
 init().then((wasm: InitOutput) => {
   const CELL_SIZE = 20;
@@ -11,32 +11,34 @@ init().then((wasm: InitOutput) => {
 
   const gameStatus = document.getElementById("game-status");
   const gameControlBtn = document.getElementById("game-control-btn");
-  const canvas = <HTMLCanvasElement> document.getElementById("snake-canvas");
+  const canvas = document.getElementById("snake-canvas") as HTMLCanvasElement;
   const ctx = canvas.getContext("2d");
 
   canvas.height = worldWidth * CELL_SIZE;
   canvas.width = worldWidth * CELL_SIZE;
 
-  gameControlBtn.addEventListener("click", _ => {
+  gameControlBtn.addEventListener("click", (_) => {
     const status = world.game_status();
 
     if (!status) {
-      gameControlBtn.textContent = "Playing..."
+      gameControlBtn.textContent = "Playing...";
       world.start_game();
       play();
-    } else  {
+    } else {
       location.reload();
     }
-  })
+  });
 
   const mapKeyToDirection: Record<string, Direction> = {
-    "ArrowUp": Direction.Up,
-    "ArrowRight": Direction.Right,
-    "ArrowDown": Direction.Down,
-    "ArrowLeft": Direction.Left,
-  }
+    ArrowUp: Direction.Up,
+    ArrowRight: Direction.Right,
+    ArrowDown: Direction.Down,
+    ArrowLeft: Direction.Left,
+  };
 
-  document.addEventListener("keydown", e => world.change_snake_dir(mapKeyToDirection[e.code]));
+  document.addEventListener("keydown", (e) => {
+    world.change_snake_dir(mapKeyToDirection[e.code]);
+  });
 
   function drawWorld() {
     ctx.beginPath();
@@ -63,12 +65,7 @@ init().then((wasm: InitOutput) => {
 
     ctx.beginPath();
     ctx.fillStyle = "#FF0000";
-    ctx.fillRect(
-      col * CELL_SIZE,
-      row * CELL_SIZE,
-      CELL_SIZE,
-      CELL_SIZE
-    );
+    ctx.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
     ctx.stroke();
   }
 
@@ -76,23 +73,23 @@ init().then((wasm: InitOutput) => {
     const snakeCells = new Uint32Array(
       wasm.memory.buffer,
       world.snake_cells(),
-      world.snake_length()
-    )
+      world.snake_length(),
+    );
 
-    snakeCells.forEach((cellIdx, i) => {
-      const col = cellIdx % worldWidth;
-      const row = Math.floor(cellIdx / worldWidth);
+    // reverse array
+    snakeCells
+      .slice()
+      .reverse()
+      .forEach((cellIdx, i) => {
+        const col = cellIdx % worldWidth;
+        const row = Math.floor(cellIdx / worldWidth);
 
-      ctx.fillStyle = i === 0 ? "#7878db" : "#000000";
+        // we are overriding snake head color by body when we crush
+        ctx.fillStyle = i === snakeCells.length - 1 ? "#7878db" : "#000000";
 
-      ctx.beginPath();
-      ctx.fillRect(
-        col * CELL_SIZE,
-        row * CELL_SIZE,
-        CELL_SIZE,
-        CELL_SIZE
-      );
-    });
+        ctx.beginPath();
+        ctx.fillRect(col * CELL_SIZE, row * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+      });
 
     ctx.stroke();
   }
@@ -109,6 +106,7 @@ init().then((wasm: InitOutput) => {
   }
 
   function play() {
+    console.log("playing!");
     const fps = 3; // frames per second
     // setTimeout will be only called once
     setTimeout(() => {

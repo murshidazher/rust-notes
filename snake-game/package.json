@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "run-p lint:**",
-    "lint:fix": "eslint --cache --fix '**/*.js'",
+    "lint:fix": "eslint --cache --fix '**/*.ts'",
     "lint:wasm:fix": "cargo fmt",
-    "lint:prettier:fix": "prettier --write '**/*.js'",
+    "lint:prettier:fix": "prettier --write '**/*.ts'",
     "build": "run-s clean build:**",
     "build:wasm": "wasm-pack build --target web",
     "build:www": "webpack build --config webpack.prod.js",

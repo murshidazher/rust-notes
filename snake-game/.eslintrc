@@ -6,7 +6,8 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "project": "./tsconfig.json"
   },
   "env": {
     "browser": true,
@@ -14,6 +15,10 @@
   },
   "rules": {
     "prettier/prettier": ["error"],
+    "@typescript-eslint/strict-boolean-expressions": ["off"],
+    "@typescript-eslint/no-floating-promises": ["off"],
+    "@typescript-eslint/explicit-function-return-type": ["off"],
+    "@typescript-eslint/prefer-nullish-coalescing": ["off"],
     "no-plusplus": ["off"],
     "import/no-extraneous-dependencies": ["off"]
   }

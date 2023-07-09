@@ -153,17 +153,22 @@ impl World {
           }
         }
 
-        let len = self.snake.body.len();
-
-        for i in 1..len {
+        for i in 1..self.snake_length() {
           self.snake.body[i] = SnakeCell(temp[i - 1].0);
+        }
+
+        // if the new head position is inside the body (lost case)
+        if self.snake.body[1..self.snake_length()].contains(&self.snake.body[0]) {
+          self.status = Some(GameStatus::Lost)
         }
 
         if self.reward_cell == self.snake_head_idx() {
           if self.snake_length() < self.size {
             self.reward_cell = World::gen_reward_cell(self.size, &self.snake.body);
           } else {
+            // all cells are collection (won case)
             self.reward_cell = 1000;
+            self.status = Some(GameStatus::Won)
           }
 
           self.snake.body.push(SnakeCell(self.snake.body[1].0));
