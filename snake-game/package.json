@@ -4,13 +4,17 @@
   "description": "A rust wasm based snake game",
   "main": "index.js",
   "scripts": {
+    "lint": "run-p lint:**",
     "lint:fix": "eslint --cache --fix '**/*.js'",
+    "lint:wasm:fix": "cargo fmt",
     "lint:prettier:fix": "prettier --write '**/*.js'",
-    "prebuild": "npm run build:rust && pnpm i",
-    "build": "webpack build --config webpack.prod.js",
-    "build:rust": "wasm-pack build --target web",
-    "predev": "npm run build:rust && pnpm i",
-    "dev": "webpack-dev-server --hot --config webpack.dev.js"
+    "build": "run-s clean build:**",
+    "build:wasm": "wasm-pack build --target web",
+    "build:www": "webpack build --config webpack.prod.js",
+    "clean": "pnpm exec rm -rf public/",
+    "start": "run-p watch:**",
+    "watch:wasm": "nodemon --config nodemon.json",
+    "watch:www": "webpack-dev-server --hot --config webpack.dev.js"
   },
   "keywords": [
     "wasm",
@@ -20,7 +24,7 @@
   "author": "Murshid Azher <hello@murshidazher.com>",
   "license": "MIT",
   "dependencies": {
-    "snake_game": "file://../pkg"
+    "snake_game": "workspace:*"
   },
   "devDependencies": {
     "clean-webpack-plugin": "4.0.0",
@@ -31,6 +35,8 @@
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-prettier": "5.0.0-alpha.1",
     "lint-staged": "13.2.3",
+    "nodemon": "3.0.1",
+    "npm-run-all": "4.1.5",
     "prettier": "3.0.0",
     "ts-loader": "9.4.4",
     "typescript": "5.1.6",
