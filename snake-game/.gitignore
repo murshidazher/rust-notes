@@ -28,6 +28,3 @@ tmp/*[.json, .log]
 
 # rust
 pkg
-
-# build files
-public
