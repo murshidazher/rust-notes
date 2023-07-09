@@ -133,9 +133,15 @@ impl World {
 
     // consume the reward cell
     if self.reward_cell == self.snake_head_idx() {
-      self.snake.body.push(SnakeCell(self.snake.body[1].0));
       // generate a new reward cell
-      self.reward_cell = World::gen_reward_cell(self.size, &self.snake.body);
+      if self.snake_length() < self.size {
+        self.reward_cell = World::gen_reward_cell(self.size, &self.snake.body);
+      } else {
+        // move the reward cell out-of-grid if the word size is reached
+        self.reward_cell = 1000;
+      }
+
+      self.snake.body.push(SnakeCell(self.snake.body[1].0));
     }
   }
 
