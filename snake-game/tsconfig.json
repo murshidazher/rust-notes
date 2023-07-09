@@ -2,10 +2,12 @@
   "compilerOptions": {
     "outDir": "./public/",
     "noImplicitAny": true,
-    "module": "es6",
-    "target": "es5",
+    "target": "esnext",
+    "module": "esnext",
     "allowJs": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "isolatedModules": true,
   },
   "include": ["www"]
 }
