@@ -9,11 +9,17 @@ init().then((wasm: InitOutput) => {
   const world = World.new(WORLD_WIDTH, snakeSpawnIdx);
   const worldWidth = world.width();
 
+  const gameControlBtn = document.getElementById("game-control-btn");
   const canvas = <HTMLCanvasElement> document.getElementById("snake-canvas");
   const ctx = canvas.getContext("2d");
 
   canvas.height = worldWidth * CELL_SIZE;
   canvas.width = worldWidth * CELL_SIZE;
+
+  gameControlBtn.addEventListener("click", _ => {
+    world.start_game();
+    play();
+  })
 
   const mapKeyToDirection: Record<string, Direction> = {
     "ArrowUp": Direction.Up,
@@ -89,7 +95,7 @@ init().then((wasm: InitOutput) => {
     drawReward();
   }
 
-  function update() {
+  function play() {
     const fps = 3; // frames per second
     // setTimeout will be only called once
     setTimeout(() => {
@@ -99,10 +105,9 @@ init().then((wasm: InitOutput) => {
       // the method takes a callback to invoked before the next repaint function of the browser
       // this will synchronize animation with the display refresh rate
       // https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
-      requestAnimationFrame(update);
+      requestAnimationFrame(play);
     }, 1000 / fps);
   }
 
   paint();
-  update();
 });
