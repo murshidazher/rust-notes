@@ -55,23 +55,27 @@ impl World {
     pub fn new(width: usize, snake_idx: usize) -> World {
         let snake = Snake::new(snake_idx, 3);
         let size = width * width;
-        let mut reward_cell;
-
-        loop {
-            reward_cell = rnd(size);
-            // loop until we generate a reward cell which is not inside the snake body
-            if !snake.body.contains(&SnakeCell(reward_cell)) {
-                break;
-            }
-        }
 
         World {
             width,
             size,
+            reward_cell: World::gen_reward_cell(size, &snake.body),
             snake,
-            next_cell: None,
-            reward_cell,
+            next_cell: None
         }
+    }
+
+    fn gen_reward_cell(max: usize, snake_body: &Vec<SnakeCell>) -> usize {
+        let mut reward_cell;
+
+        loop {
+            reward_cell = rnd(max);
+            if !snake_body.contains(&SnakeCell(reward_cell)) {
+                break;
+            }
+        }
+
+        reward_cell
     }
 
     pub fn width(&self) -> usize {
@@ -130,6 +134,8 @@ impl World {
         // consume the reward cell
         if self.reward_cell == self.snake_head_idx() {
             self.snake.body.push(SnakeCell(self.snake.body[1].0));
+            // generate a new reward cell
+            self.reward_cell = World::gen_reward_cell(self.size, &self.snake.body);
         }
     }
 
