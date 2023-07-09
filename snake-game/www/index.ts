@@ -1,5 +1,5 @@
-import init, { World, Direction, type InitOutput } from "snake_game";
-import rnd from "./utils/rnd";
+import init, { World, Direction, GameStatus } from "snake_game";
+import { rnd } from "./utils/rnd";
 
 init().then((wasm: InitOutput) => {
   const CELL_SIZE = 20;
@@ -9,6 +9,7 @@ init().then((wasm: InitOutput) => {
   const world = World.new(WORLD_WIDTH, snakeSpawnIdx);
   const worldWidth = world.width();
 
+  const points = document.getElementById("points");
   const gameStatus = document.getElementById("game-status");
   const gameControlBtn = document.getElementById("game-control-btn");
   const canvas = document.getElementById("snake-canvas") as HTMLCanvasElement;
@@ -76,7 +77,6 @@ init().then((wasm: InitOutput) => {
       world.snake_length(),
     );
 
-    // reverse array
     snakeCells
       .slice()
       .reverse()
@@ -96,6 +96,7 @@ init().then((wasm: InitOutput) => {
 
   function drawGameStatus() {
     gameStatus.textContent = world.game_status_text();
+    points.textContent = world.points().toString();
   }
 
   function paint() {
@@ -106,10 +107,17 @@ init().then((wasm: InitOutput) => {
   }
 
   function play() {
-    console.log("playing!");
+    const status = world.game_status();
+
+    if ([GameStatus.Won, GameStatus.Lost].includes(status)) {
+      gameControlBtn.textContent = "Re-Play";
+      return;
+    }
+
     const fps = 3; // frames per second
     // setTimeout will be only called once
     setTimeout(() => {
+      console.log("Playing!");
       ctx.clearRect(0, 0, canvas.width, canvas.height); // Clean canvas before redrawing
       world.step(); // move the body
       paint();
