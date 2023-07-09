@@ -17,8 +17,15 @@ init().then((wasm: InitOutput) => {
   canvas.width = worldWidth * CELL_SIZE;
 
   gameControlBtn.addEventListener("click", _ => {
-    world.start_game();
-    play();
+    const gameStatus = world.game_status();
+
+    if (!gameStatus) {
+      gameControlBtn.textContent = "Playing..."
+      world.start_game();
+      play();
+    } else  {
+      location.reload();
+    }
   })
 
   const mapKeyToDirection: Record<string, Direction> = {
