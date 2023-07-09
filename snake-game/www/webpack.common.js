@@ -22,7 +22,11 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: ["public/*.wasm"],
+      cleanOnceBeforeBuildPatterns: [
+        "public/*.wasm",
+        "public/bootstrap.js",
+        "public/*.bootstrap.js",
+      ],
     }),
     new CopyWebpackPlugin({
       patterns: [{ from: "./index.html", to: "./" }],
