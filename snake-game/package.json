@@ -12,7 +12,9 @@
     "build:wasm": "wasm-pack build --target web",
     "build:www": "webpack build --config webpack.prod.js",
     "clean": "pnpm exec rm -rf public/",
-    "start": "run-p watch:**",
+    "start": "run-s build serve",
+    "serve": "pnpm --filter snake_game_server --prod start",
+    "watch": "run-p watch:**",
     "watch:wasm": "nodemon --config nodemon.json",
     "watch:www": "webpack-dev-server --hot --config webpack.dev.js"
   },
